@@ -1,20 +1,19 @@
-﻿using FrontEndWebApplication.Repository.Interfaces;
-using System.Collections;
+﻿using System.Collections;
 using System.Text;
+using FrontEndWebApplication.Repository.Interfaces;
+using Newtonsoft.Json;
 
 namespace FrontEndWebApplication.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
+        //Inyección de dependencias e inversión de control
         private readonly IHttpClientFactory _httpClientFactory;
 
         public Repository(IHttpClientFactory httpClientFactory)
         {
             this._httpClientFactory = httpClientFactory;
         }
-
-        public object JsonConvert { get; private set; }
-
         public async Task<bool> DeleteAsync(string url, int id)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, url + id);
@@ -47,7 +46,6 @@ namespace FrontEndWebApplication.Repository
                 }
                 else
                 {
-                    // Opcional: Manejar diferentes códigos de estado de manera más específica
                     throw new HttpRequestException($"Request to {url} failed with status code {responseMessage.StatusCode}.");
                 }
             }

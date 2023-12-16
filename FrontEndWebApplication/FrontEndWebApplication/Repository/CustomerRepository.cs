@@ -8,7 +8,6 @@ namespace FrontEndWebApplication.Repository
         public CustomerRepository(IHttpClientFactory httpClientFactory)
             : base(httpClientFactory)
         {
-
         }
     }
 }
