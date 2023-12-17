@@ -6,8 +6,5 @@
         public static string UrlBase = "https://apirestbillingceet.azurewebsites.net/swagger/index.html";
         public static string UrlCustomers = "api/Customers/";
 
-
-        public static string UrlUsers = UrlBase + "api/Usuarios/";
-
     }
 }
