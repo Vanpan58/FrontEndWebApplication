@@ -1,6 +1,7 @@
 ﻿using FrontEndWebApplication.Models.DTO;
 using FrontEndWebApplication.Repository.Interfaces;
 using FrontEndWebApplication.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,25 +39,33 @@ namespace FrontEndWebApplication.Controllers
         }
 
 
-        // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
+        //GET: CustomersController/Details/5
+       public async Task<IActionResult> Details(int id) 
         {
-            return View();
+            var customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
+            if (customer == null)
+            {
+                return Json(new { success = false, message = "Cliente no encontrado." });
+            }
+            return View(customer);
         }
 
-        // GET: CustomerController/Create
+        // GET: CustomersController/Create
+        //Renderiza la vista
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CustomerController/Create
+        // POST: CustomersController/Create
+        //Captura los datos y los lleva hacia el endpointpasando por el repositorio --> Nube--> DB
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CustomerDTO customer)
         {
             try
             {
+                await _customerRepository.PostAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, customer);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -65,46 +74,57 @@ namespace FrontEndWebApplication.Controllers
             }
         }
 
-        // GET: CustomerController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: CustomersController/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+
+            var customer = new CustomerDTO();
+
+            customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id.GetValueOrDefault());
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return View(customer);
+        }
+
+        // POST: CustomersController/Edit/5
+        [HttpPost]
+        //[Authorize(Roles = "admin, registrado")]
+        //[AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CustomerDTO customer)
+        {
+            if (ModelState.IsValid)
+            {
+                await _customerRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlCustomers + customer.id, customer);
+                return RedirectToAction(nameof(Index));
+            }
+
             return View();
         }
 
-        // POST: CustomerController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [Authorize(Roles = "admin")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
         {
-            try
+            var customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
+            if (customer == null)
             {
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = false, message = "Cliente no encontrado." });
             }
-            catch
+
+            var deleteResult = await _customerRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
+            if (deleteResult)
             {
-                return View();
+                return Json(new { success = true, message = "Cliente eliminado correctamente." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Error al eliminar el cliente." });
             }
         }
 
-        // GET: CustomerController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: CustomerController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

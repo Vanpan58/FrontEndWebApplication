@@ -46,6 +46,7 @@ namespace FrontEndWebApplication.Repository
                 }
                 else
                 {
+                    // Opcional: Manejar diferentes códigos de estado de manera más específica
                     throw new HttpRequestException($"Request to {url} failed with status code {responseMessage.StatusCode}.");
                 }
             }
