@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "List of Suppliers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Proveedores</h2>
+<br />
+<div class="col-6">
+    <a asp-action="Create" class="btn btn-success text-white">Crear Proveedores</a>
+</div>
+<br />
+<div id="suppliersContainer">
+    <!-- Los clientes se mostrarán aquí -->
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Suppliers.js"></script>
+}
+
+
+
+@* <style>
+    .Suppliers-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .customer-table, .suppliers-table th, .suppliers-table td {
+            border: 1px solid black;
+        }
+
+            .suppliers-table th, .suppliers-table td {
+                padding: 8px;
+                text-align: left;
+            }
+
+            .suppliers-table th {
+                background-color: #f2f2f2;
+            }
+
+</style> *@
+
+
+

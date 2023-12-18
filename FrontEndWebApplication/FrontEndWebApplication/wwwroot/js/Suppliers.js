@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    loadCustomers();
+    loadSuppliers();
 });
 
-function loadCustomers() {
-    fetch('/Customers/GetAllCustomers') // Asegúrate de reemplazar con la ruta correcta
+function loadSuppliers() {
+    fetch('/Customers/GetAllSuppliers') 
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -12,33 +12,35 @@ function loadCustomers() {
 }
 
 
-function initializeDataTable(customers) {
-    let table = document.getElementById('customersTable');
+function initializeDataTable(suppliers) {
+    let table = document.getElementById('SuppliersTable');
     if (!table) {
         table = document.createElement('table');
-        table.id = 'customersTable';
+        table.id = 'SuppliersTable';
         table.className = 'display'; // Clase necesaria para DataTables
-        document.getElementById('customersContainer').appendChild(table);
+        document.getElementById('SuppliersContainer').appendChild(table);
     }
 
     $(table).DataTable({
         responsive: true,
-        data: customers,
+        data: suppliers,
         columns: [
-            { title: "ID", data: "id", className: "column-id" },
-            { title: "Nombre", data: "firstName", className: "column-name" },
-            { title: "Apellido", data: "lastName", className: "column-name" },
+            { title: "ID", data: "Id", className: "column-id" },
+            { title: "Nombre Compañia", data: "CompanyName", className: "column-name" },
+            { title: "Nombre Contacto", data: "ContactName ", className: "column-name" },
+            { title: "Titulo contacto", data: "ContactTitle", className: "column-name" },
             { title: "Ciudad", data: "city", className: "column-city" },
             { title: "Pais", data: "country", className: "column-country" },
             { title: "Telefono", data: "phone", className: "column-phone" },
+            { title: "Correo", data: "Email", className: "column-email" },
             {
                 title: "Acciones",
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Customers/Detail/${data}" class=""><i class="fa fa-eye"></i></a>
-                                <a href="/Customers/Edit/${data}" class=""><i class="fa fa-edit"></i></a>
-                                <a onclick="Delete('/Customers/Delete/${data}')" class=""><i class="fa fa-trash"></i></a>
+                                <a href="/Suppliers/Detail/${data}" class=""><i class="fa fa-eye"></i></a>
+                                <a href="/Suppliers/Edit/${data}" class=""><i class="fa fa-edit"></i></a>
+                                <a onclick="Delete('/Suppliers/Delete/${data}')" class=""><i class="fa fa-trash"></i></a>
                             </div>`;
                 },
                 className: "column-actions"

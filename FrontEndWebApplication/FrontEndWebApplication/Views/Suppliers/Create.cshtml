@@ -1,0 +1,100 @@
+﻿
+@model FrontEndWebApplication.Models.DTO.SupplierDTO
+
+
+@{
+    ViewData["Title"] = "Crear Proveedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container p-4">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-success">Crear Proveedor</h2>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="row">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="CompanyName">Nombre Compañia</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="CompanyName" class="form-control" />
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ContactName">Nombre Contacto</label>
+                </div>
+                <div class="col-6 bg-success" >
+                    <input asp-for="ContactName" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ContactTitle">Titulo Contacto</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="ContactTitle" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="City">Ciudad</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="City" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Country">Pais</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="Country" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Phone">Telefono</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Email">Correo</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <button type="submit" class="btn btn-success form-control">Crear Proveedor</button>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-success form-control"><a asp-action="Index" class="text-white">Volver Al Inicio</a></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

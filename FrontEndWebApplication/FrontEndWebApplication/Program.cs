@@ -11,6 +11,7 @@ builder.Services.AddHttpClient();
 
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 
 //Agregamos parámetros de autenticación
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
