@@ -5,7 +5,7 @@ namespace FrontEndWebApplication.Models.NewModels
 {
     public class ProductsVM
     {
-        public IEnumerable<SelectListItem> ListProduct { get; set; }
+        public IEnumerable<SelectListItem> ListProducts { get; set; }
         public ProductDTO Product { get; set; }
 
     }

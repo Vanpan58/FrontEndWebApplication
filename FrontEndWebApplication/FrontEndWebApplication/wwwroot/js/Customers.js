@@ -36,7 +36,6 @@ function initializeDataTable(customers) {
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Customers/Detail/${data}" class=""><i class="fa fa-eye"></i></a>
                                 <a href="/Customers/Edit/${data}" class=""><i class="fa fa-edit"></i></a>
                                 <a onclick="Delete('/Customers/Delete/${data}')" class=""><i class="fa fa-trash"></i></a>
                             </div>`;

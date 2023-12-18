@@ -1,0 +1,77 @@
+﻿@model FrontEndWebApplication.Models.DTO.ProductDTO
+
+@{
+    ViewData["Title"] = "Crear Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-4">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-success">Crear Productos</h2>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <form method="post" asp-action="Create">
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ProductName">Nombre del Producto</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="ProductName" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="SupplierId">ID del Proveedor</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="SupplierId" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="UnitPrice">Precio Unitario</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="UnitPrice" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Package">Paquete</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input asp-for="Package" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="IsDiscontinued">¿Está descontinuado?</label>
+                </div>
+                <div class="col-6 bg-success">
+                    <input class="form-check-input" asp-for="IsDiscontinued" />
+                    <label class="form-check-label">@Html.DisplayNameFor(model => model.IsDiscontinued)</label>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="form-group row">
+                <div class="col-2">
+                    <button type="submit" class="btn btn-success form-control">Crear Producto</button>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-success form-control"><a asp-action="Index" class="text-white">Volver Al Inicio</a></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

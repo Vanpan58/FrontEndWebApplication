@@ -40,14 +40,9 @@ namespace FrontEndWebApplication.Controllers
 
 
         //GET: ProductsController/Details/5
-        public async Task<IActionResult> Details(int id)
+        public ActionResult Details(int id)
         {
-            var Product = await _ProductRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
-            if (Product == null)
-            {
-                return Json(new { success = false, message = "Cliente no encontrado." });
-            }
-            return View(Product);
+            return View();
         }
 
         // GET: ProductsController/Create
@@ -104,24 +99,23 @@ namespace FrontEndWebApplication.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var Product = await _ProductRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
             if (Product == null)
             {
-                return Json(new { success = false, message = "Cliente no encontrado." });
+                return Json(new { success = false, message = "Producto no encontrado." });
             }
 
             var deleteResult = await _ProductRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
             if (deleteResult)
             {
-                return Json(new { success = true, message = "Cliente eliminado correctamente." });
+                return Json(new { success = true, message = "Producto eliminado correctamente." });
             }
             else
             {
-                return Json(new { success = false, message = "Error al eliminar el cliente." });
+                return Json(new { success = false, message = "Error al eliminar el Producto." });
             }
         }
 

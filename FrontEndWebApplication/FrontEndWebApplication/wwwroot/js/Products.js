@@ -11,31 +11,31 @@ function loadProducts() {
         .catch(error => console.error('Error:', error));
 }
 
-function initializeDataTable(products) {
-    let table = document.getElementById('productsTable');
+
+function initializeDataTable(Products) {
+    let table = document.getElementById('ProductsTable');
     if (!table) {
         table = document.createElement('table');
-        table.id = 'productsTable';
+        table.id = 'ProductsTable';
         table.className = 'display'; // Clase necesaria para DataTables
-        document.getElementById('productsContainer').appendChild(table);
+        document.getElementById('ProductsContainer').appendChild(table);
     }
 
     $(table).DataTable({
         responsive: true,
-        data: products,
+        data: Products,
         columns: [
-            { title: "ID", data: "Id", className: "column-id" },
-            { title: "Nombre del Producto", data: "ProductName", className: "column-name" },
-            { title: "ID del Proveedor", data: "SupplierId", className: "column-supplierId" },
-            { title: "Precio Unitario", data: "UnitPrice", className: "column-unitPrice" },
-            { title: "Empaque", data: "Package", className: "column-package" },
-            { title: "¿Descontinuado?", data: "IsDiscontinued", className: "column-isDiscontinued" },
+            { title: "ID", data: "id", className: "column-id" },
+            { title: "Nombre del Producto", data: "productName", className: "column-name" },
+            { title: "ID del Proveedor", data: "supplierId", className: "column-supplierId" },
+            { title: "Precio Unitario", data: "unitPrice", className: "column-unitPrice" },
+            { title: "Empaque", data: "package", className: "column-package" },
+            { title: "¿Descontinuado?", data: "isDiscontinued", className: "column-isDiscontinued" },
             {
                 title: "Acciones",
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Products/Detail/${data}" class=""><i class="fa fa-eye"></i></a>
                                 <a href="/Products/Edit/${data}" class=""><i class="fa fa-edit"></i></a>
                                 <a onclick="Delete('/Products/Delete/${data}')" class=""><i class="fa fa-trash"></i></a>
                             </div>`;
@@ -46,15 +46,16 @@ function initializeDataTable(products) {
     });
 }
 
+
 function Delete(url) {
     Swal.fire({
-        title: "¿Está seguro de querer borrar el registro?",
-        text: "¡Esta acción no puede ser revertida!",
+        title: "¿Esta seguro de querer borrar el registro?",
+        text: "¡Esta accion no puede ser revertida!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
+        confirmButtonText: 'Sí, borralo!',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -63,12 +64,12 @@ function Delete(url) {
                 url: url,
                 success: function (response) {
                     if (response && response.success) {
-                        toastr.success(response.message || "Registro eliminado con éxito.");
+                        toastr.success(response.message || "Registro eliminado con exito.");
                         // Recargar DataTables
-                        $('#productsTable').DataTable().clear().destroy();
+                        $('#ProductsTable').DataTable().clear().destroy();
                         loadProducts();
                     } else {
-                        toastr.error(response.message || "Ocurrió un error desconocido.");
+                        toastr.error(response.message || "Ocurrio un error desconocido.");
                     }
                 },
                 error: function (error) {

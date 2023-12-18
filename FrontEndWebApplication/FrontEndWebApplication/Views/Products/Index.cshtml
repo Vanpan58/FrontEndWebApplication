@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "List of Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Productos</h2>
+<br />
+<div class="col-6">
+    <a asp-action="Create" class="btn btn-success text-white">Crear Productos</a>
+</div>
+<br />
+<div id="ProductsContainer">
+    <!-- Los clientes se mostrarán aquí -->
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Products.js"></script>
+}
+
+
+
+@* <style>
+    .Products-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .customer-table, .Products-table th, .Products-table td {
+            border: 1px solid black;
+        }
+
+            .Products-table th, .Products-table td {
+                padding: 8px;
+                text-align: left;
+            }
+
+            .Products-table th {
+                background-color: #f2f2f2;
+            }
+
+</style> *@
+
+
+

@@ -25,20 +25,19 @@ function initializeDataTable(Suppliers) {
         responsive: true,
         data: Suppliers,
         columns: [
-            { title: "ID", data: "Id", className: "column-id" },
-            { title: "Nombre Compañia", data: "CompanyName", className: "column-name" },
-            { title: "Nombre Contacto", data: "ContactName ", className: "column-name" },
-            { title: "Titulo contacto", data: "ContactTitle", className: "column-name" },
+            { title: "ID", data: "id", className: "column-id" },
+            { title: "Nombre Compañia", data: "companyName", className: "column-name" },
+            { title: "Nombre Contacto", data: "contactName", className: "column-name" },
+            { title: "Titulo contacto", data: "contactTitle", className: "column-name" },
             { title: "Ciudad", data: "city", className: "column-city" },
             { title: "Pais", data: "country", className: "column-country" },
             { title: "Telefono", data: "phone", className: "column-phone" },
-            { title: "Correo", data: "Email", className: "column-email" },
+            { title: "Correo", data: "email", className: "column-email" },
             {
                 title: "Acciones",
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Suppliers/Detail/${data}" class=""><i class="fa fa-eye"></i></a>
                                 <a href="/Suppliers/Edit/${data}" class=""><i class="fa fa-edit"></i></a>
                                 <a onclick="Delete('/Suppliers/Delete/${data}')" class=""><i class="fa fa-trash"></i></a>
                             </div>`;
@@ -70,7 +69,7 @@ function Delete(url) {
                         toastr.success(response.message || "Registro eliminado con exito.");
                         // Recargar DataTables
                         $('#SuppliersTable').DataTable().clear().destroy();
-                        loadCustomers();
+                        loadSuppliers();
                     } else {
                         toastr.error(response.message || "Ocurrio un error desconocido.");
                     }
