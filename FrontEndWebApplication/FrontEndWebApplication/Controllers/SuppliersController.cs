@@ -40,7 +40,7 @@ namespace FrontEndWebApplication.Controllers
 
 
         //GET: SuppliersController/Details/5
-        public  IActionResult Details(int id)
+        public  ActionResult Details(int id)
         {
             return View();
         }
@@ -56,7 +56,7 @@ namespace FrontEndWebApplication.Controllers
         //Captura los datos y los lleva hacia el endpointpasando por el repositorio --> Nube--> DB
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SupplierDTO Supplier)
+        public async Task<ActionResult> Create(SupplierDTO Supplier)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace FrontEndWebApplication.Controllers
         }
 
         // GET: SuppliersController/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
 
             var supplier = new SupplierDTO();

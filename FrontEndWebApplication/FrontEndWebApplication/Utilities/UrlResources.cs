@@ -5,7 +5,8 @@
 
         public static string UrlBase = "https://apirestbillingceet.azurewebsites.net/";
         public static string UrlCustomers = "api/Customers/";
-        public static string UrlSuppliers = "api/Supplier/";
+        public static string UrlSuppliers = "api/Suppliers/";
+        public static string UrlProducts = "api/Products/";
 
     }
 }

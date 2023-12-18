@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadSuppliers() {
-    fetch('/Customers/GetAllSuppliers') 
+    fetch('/Suppliers/GetAllSuppliers') 
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -12,7 +12,7 @@ function loadSuppliers() {
 }
 
 
-function initializeDataTable(suppliers) {
+function initializeDataTable(Suppliers) {
     let table = document.getElementById('SuppliersTable');
     if (!table) {
         table = document.createElement('table');
@@ -23,7 +23,7 @@ function initializeDataTable(suppliers) {
 
     $(table).DataTable({
         responsive: true,
-        data: suppliers,
+        data: Suppliers,
         columns: [
             { title: "ID", data: "Id", className: "column-id" },
             { title: "Nombre Compañia", data: "CompanyName", className: "column-name" },
@@ -69,7 +69,7 @@ function Delete(url) {
                     if (response && response.success) {
                         toastr.success(response.message || "Registro eliminado con exito.");
                         // Recargar DataTables
-                        $('#customersTable').DataTable().clear().destroy();
+                        $('#SuppliersTable').DataTable().clear().destroy();
                         loadCustomers();
                     } else {
                         toastr.error(response.message || "Ocurrio un error desconocido.");

@@ -7,28 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontEndWebApplication.Controllers
 {
-    public class CustomersController : Controller
+    public class ProductsController : Controller
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IProductRepository _ProductRepository;
 
-        public CustomersController(ICustomerRepository _customerRepository)
+        public ProductsController(IProductRepository _ProductRepository)
         {
-            this._customerRepository = _customerRepository;
+            this._ProductRepository = _ProductRepository;
         }
 
         [HttpGet]
-        // GET: CustomerController
+        // GET: ProductController
         public ActionResult Index()
         {
-            return View(new CustomerDTO() { });
+            return View(new ProductDTO() { });
         }
 
-        public async Task<IActionResult> GetAllCustomers()
+        public async Task<IActionResult> GetAllProducts()
         {
             try
             {
                 //Llama al repositorio
-                var data = await _customerRepository.GetAllAsync(UrlResources.UrlBase + UrlResources.UrlCustomers);
+                var data = await _ProductRepository.GetAllAsync(UrlResources.UrlBase + UrlResources.UrlProducts);
                 return Json(new { data });
             }
             catch (Exception ex)
@@ -39,28 +39,33 @@ namespace FrontEndWebApplication.Controllers
         }
 
 
-        //GET: CustomersController/Details/5
-       public  ActionResult Details(int id) 
+        //GET: ProductsController/Details/5
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var Product = await _ProductRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
+            if (Product == null)
+            {
+                return Json(new { success = false, message = "Cliente no encontrado." });
+            }
+            return View(Product);
         }
 
-        // GET: CustomersController/Create
+        // GET: ProductsController/Create
         //Renderiza la vista
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CustomersController/Create
+        // POST: ProductsController/Create
         //Captura los datos y los lleva hacia el endpointpasando por el repositorio --> Nube--> DB
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerDTO customer)
+        public async Task<IActionResult> Create(ProductDTO Product)
         {
             try
             {
-                await _customerRepository.PostAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, customer);
+                await _ProductRepository.PostAsync(UrlResources.UrlBase + UrlResources.UrlProducts, Product);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -69,46 +74,47 @@ namespace FrontEndWebApplication.Controllers
             }
         }
 
-        // GET: CustomersController/Edit/5
+        // GET: ProductsController/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
 
-            var customer = new CustomerDTO();
+            var Product = new ProductDTO();
 
-            customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id.GetValueOrDefault());
-            if (customer == null)
+            Product = await _ProductRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id.GetValueOrDefault());
+            if (Product == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(Product);
         }
 
-        // POST: CustomersController/Edit/5
+        // POST: ProductsController/Edit/5
         [HttpPost]
         //[Authorize(Roles = "admin, registrado")]
         //[AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CustomerDTO customer)
+        public async Task<IActionResult> Edit(ProductDTO Product)
         {
             if (ModelState.IsValid)
             {
-                await _customerRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlCustomers + customer.id, customer);
+                await _ProductRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlProducts + Product.Id, Product);
                 return RedirectToAction(nameof(Index));
             }
 
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
-            if (customer == null)
+            var Product = await _ProductRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
+            if (Product == null)
             {
                 return Json(new { success = false, message = "Cliente no encontrado." });
             }
 
-            var deleteResult = await _customerRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
+            var deleteResult = await _ProductRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlProducts, id);
             if (deleteResult)
             {
                 return Json(new { success = true, message = "Cliente eliminado correctamente." });

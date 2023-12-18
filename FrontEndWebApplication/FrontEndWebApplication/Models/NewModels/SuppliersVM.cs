@@ -3,10 +3,10 @@ using FrontEndWebApplication.Models.DTO;
 
 namespace FrontEndWebApplication.Models.NewModels
 {
-    public class SupplierMV
+    public class SuppliersVM
     {
         public IEnumerable<SelectListItem> ListSuppliers { get; set; }
 
-        public ProductDTO Proveedor { get; set; }
+        public ProductDTO Supplier { get; set; }
     }
 }
